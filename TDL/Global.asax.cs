@@ -12,6 +12,9 @@ namespace TDL
     {
         protected void Application_Start()
         {
+            //System.Data.Entity.Database.SetInitializer(new TDL.Models.SampleData());
+            //AreaRegistration.RegisterAllAreas();
+            
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

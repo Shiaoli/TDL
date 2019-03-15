@@ -9,37 +9,27 @@ namespace TDL.Controllers
 {
     public class StoreController : Controller
     {
+        TDLEntities storeDB = new TDLEntities();
+
         // GET: Store
         public ActionResult Index()
         {
-            
-            using (var tdldb = new TDLEntities())
-            {
-                var genre = new Genre() { Name = "name1", Description = "Jazz" };
-                tdldb.Genres.Add(genre);
-                tdldb.SaveChanges();
-            }
-            
-            var genres = new List<Genre>
-            {
-                new Genre {Name="Disco"},
-                new Genre {Name="Jazz"},
-                new Genre {Name="Rock"}
-            };
+
+            var genres = storeDB.Genres.ToList();
             return View(genres);
         }
 
         // GET: /Store/Browse
         public ActionResult Browse(string genre)
         {
-            var genreModel = new Genre { Name = genre };
+            var genreModel = storeDB.Genres.Include("Albums").Single(g => g.Name == genre);
             return View(genreModel);
         }
 
         // GET: /Store/Details
         public ActionResult Details(int id)
         {
-            var album = new Album { Title = "Album" + id };
+            var album =storeDB.Albums.Find(id);
             return View(album);
         }
     }
